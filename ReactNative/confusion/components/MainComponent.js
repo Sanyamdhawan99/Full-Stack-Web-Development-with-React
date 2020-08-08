@@ -10,6 +10,24 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 import { StatusBar } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { fetchDishes, fetchComments, fetchLeaders, fetchPromos } from '../redux/ActionCreator'; 
+
+const mapStateToProps = state => {
+    return {
+      dishes: state.dishes,
+      comments: state.comments,
+      promotions: state.promotions,
+      leaders: state.leaders
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    fetchDishes: () => dispatch(fetchDishes()),
+    fetchComments: () => dispatch(fetchComments()),
+    fetchPromos: () => dispatch(fetchPromos()),
+    fetchLeaders: () => dispatch(fetchLeaders())
+  })
 
 const CustomDrawerContentComponent = (props) => (
     <ScrollView>
@@ -245,6 +263,10 @@ class Main extends Component {
 
     componentDidMount() {
         StatusBar.setHidden(true);
+        this.props.fetchDishes();
+        this.props.fetchComments();
+        this.props.fetchPromos();
+        this.props.fetchLeaders();
     }  
 
     render() {
@@ -281,4 +303,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
