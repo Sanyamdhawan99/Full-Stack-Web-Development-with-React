@@ -11,7 +11,7 @@ import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer'
 import { StatusBar } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { fetchDishes, fetchComments, fetchLeaders, fetchPromos } from '../redux/ActionCreator'; 
+import { fetchDishes, fetchComments, fetchLeaders, fetchPromos } from '../redux/ActionCreators'; 
 
 const mapStateToProps = state => {
     return {
