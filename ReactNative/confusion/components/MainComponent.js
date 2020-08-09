@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Home from './HomeComponent';
+import About from './AboutComponent';
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
-import About from './AboutComponent';
+import Reservation from './ReservationComponent';
 import Contact from './ContactComponent';
-import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
@@ -154,6 +155,41 @@ function MenuNavigatorScreen() {
     );
 }
 
+const ReservationNavigator = createStackNavigator()
+
+function ReservationNavigatorScreen() {
+    return(
+        <ReservationNavigator.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff",        
+                },
+            }}
+        >
+            <ReservationNavigator.Screen
+                name="Reservation"
+                component={Reservation}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name="menu"
+                                size={24}
+                                color="white"
+                                onPress={() => navigation.toggleDrawer()}
+                            />
+                        )       
+                    })
+                }
+            />       
+        </ReservationNavigator.Navigator>
+    );
+}
+
 const ContactNavigator = createStackNavigator()
 
 function ContactNavigatorScreen() {
@@ -188,7 +224,6 @@ function ContactNavigatorScreen() {
         </ContactNavigator.Navigator>
     );
 }
-
 
 const MainNavigator = createDrawerNavigator()
 
@@ -239,21 +274,37 @@ function MainNavigatorScreen() {
                         />
                     )
                 }}
-            />    
+            />   
+
             <MainNavigator.Screen
-            name="Contact Us"
-            component={ContactNavigatorScreen}
-            options={{
-                drawerIcon: ({tintColor}) => (
-                    <Icon 
-                        name="address-card"
-                        type="font-awesome"
-                        size={22}
-                        color={tintColor}
-                    />
-                )
-            }}
-        />       
+                name="Reserve Table"
+                component={ReservationNavigatorScreen}
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon 
+                            name="cutlery"
+                            type="font-awesome"
+                            size={24}
+                            color={tintColor}
+                        />
+                    )
+                }}
+            /> 
+
+            <MainNavigator.Screen
+                name="Contact Us"
+                component={ContactNavigatorScreen}
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon 
+                            name="address-card"
+                            type="font-awesome"
+                            size={22}
+                            color={tintColor}
+                        />
+                    )
+                }}
+            />       
         </MainNavigator.Navigator>
     );
 }
