@@ -4,6 +4,7 @@ import About from './AboutComponent';
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
 import Reservation from './ReservationComponent';
+import Favorite from './FavoriteComponent';
 import Contact from './ContactComponent';
 import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -155,6 +156,41 @@ function MenuNavigatorScreen() {
     );
 }
 
+const FavoritesNavigator = createStackNavigator()
+
+function FavoritesNavigatorScreen() {
+    return(
+        <FavoritesNavigator.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff",        
+                },
+            }}
+        >
+            <FavoritesNavigator.Screen
+                name="My Favorites"
+                component={Favorite}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name="menu"
+                                size={24}
+                                color="white"
+                                onPress={() => navigation.toggleDrawer()}
+                            />
+                        )       
+                    })
+                }
+            />       
+        </FavoritesNavigator.Navigator>
+    );
+}
+
 const ReservationNavigator = createStackNavigator()
 
 function ReservationNavigatorScreen() {
@@ -275,6 +311,21 @@ function MainNavigatorScreen() {
                     )
                 }}
             />   
+            
+            <MainNavigator.Screen
+                name="My Favorites"
+                component={FavoritesNavigatorScreen}
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon 
+                            name="heart"
+                            type="font-awesome"
+                            size={24}
+                            color={tintColor}
+                        />
+                    )
+                }}
+            />     
 
             <MainNavigator.Screen
                 name="Reserve Table"
