@@ -217,6 +217,38 @@
       "comment": "Excellent cake.",
       "date": "2020-08-05T11:50:45.990Z",
       "id": 21
+    },
+    {
+      "dishId": 0,
+      "rating": 4,
+      "author": "Sanyam Dhawan",
+      "comment": "This is a test comment.",
+      "date": "2020-08-10T15:13:33.376Z",
+      "id": 22
+    },
+    {
+      "dishId": 1,
+      "rating": 5,
+      "author": "Sanyam",
+      "comment": "Okayish, but tasty",
+      "date": "2020-08-10T15:14:42.544Z",
+      "id": 23
+    },
+    {
+      "dishId": 3,
+      "rating": 5,
+      "author": "Sanyam",
+      "comment": "Tasty af",
+      "date": "2020-08-10T15:16:46.284Z",
+      "id": 24
+    },
+    {
+      "dishId": 0,
+      "rating": 5,
+      "author": "Qwert",
+      "comment": "Testing it",
+      "date": "2020-08-10T16:22:11.490Z",
+      "id": 25
     }
   ],
   "promotions": [
