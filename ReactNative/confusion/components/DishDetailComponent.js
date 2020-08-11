@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button ,ScrollView, FlatList, Alert, Modal, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Button ,ScrollView, FlatList, Alert, Modal, TextInput, PanResponder } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { connect } from 'react-redux';
@@ -27,9 +27,46 @@ function formatDate(unformattedDate) {
 
 function RenderDish(props) {
     const dish = props.dish;
+
+    const recognizeDrag = ({moveX, moveY, dx, dy}) => {
+        if (dx < 200) 
+            return true;
+        else 
+            return false;
+    }
+
+    const panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: (e, gestureState) => {
+            return true;
+        },
+        onPanResponderEnd: (e, gestureState) => {
+            console.log('Pan responder ends ', gestureState);
+            if (recognizeDrag(gestureState)) {
+                Alert.alert(
+                    'Add Favorite',
+                    'Are you sure you wish to add ' + dish.name + ' to favorite?',
+                    [
+                        {
+                            text: 'Cancel',
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'Ok',
+                            onPress: () => props.favorite ? Alert.alert('', 'Already Favourite') : props.onPressFavorite()
+                        }
+                    ],
+                    {cancelable: false}
+                );
+            }
+            return true;
+        }
+    })
+
     if(dish != null) {
         return (
-            <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+            <Animatable.View animation="fadeInDown" duration={2000} delay={1000}
+                {...panResponder.panHandlers}
+            >
                 <Card featuredTitle={dish.name} image={ {uri: baseUrl + dish.image} }>
                     <Text style={{margin:10}}>
                         {dish.description}
@@ -142,6 +179,7 @@ class DishDetail extends Component {
 
     render() {
         const dishId = this.props.route.params.dishId;
+
         return(
             <ScrollView>
                 <RenderDish 
