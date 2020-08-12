@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button ,ScrollView, FlatList, Alert, Modal, TextInput, PanResponder } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating } from 'react-native-ratings';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite, postComment } from '../redux/ActionCreators';
@@ -30,8 +30,15 @@ function RenderDish(props) {
 
     handleViewRef = ref => this.view = ref;
 
-    const recognizeDrag = ({moveX, moveY, dx, dy}) => {
+    const recognizeLeftDrag = ({moveX, moveY, dx, dy}) => {
         if (dx < 200) 
+            return true;
+        else 
+            return false;
+    }
+
+    const recognizeRightDrag = ({moveX, moveY, dx, dy}) => {
+        if (dx > -200) 
             return true;
         else 
             return false;
@@ -49,7 +56,7 @@ function RenderDish(props) {
 
         onPanResponderEnd: (e, gestureState) => {
             console.log('Pan responder ends ', gestureState);
-            if (recognizeDrag(gestureState)) {
+            if (recognizeLeftDrag(gestureState)) {
                 Alert.alert(
                     'Add Favorite',
                     'Are you sure you wish to add ' + dish.name + ' to favorite?',
@@ -65,6 +72,9 @@ function RenderDish(props) {
                     ],
                     {cancelable: false}
                 );
+            }
+            else if (recognizeRightDrag(gestureState)) {
+                {props.onPressComment()}
             }
             return true;
         }
