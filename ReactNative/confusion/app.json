@@ -17,7 +17,7 @@
       "**/*"
     ],
     "android": {
-      "useNextNotificationsApi": true,
+      "useNextNotificationsApi": true
     },
     "ios": {
       "supportsTablet": true
