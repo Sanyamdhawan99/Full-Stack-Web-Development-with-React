@@ -36,10 +36,10 @@ class Contact extends Component {
                    <Text style={{margin: 10}} >Fax: +852 8765 4321</Text>  
                    <Text style={{margin: 10}} >Email:confusion@food.net</Text>  
                    <Button 
-                        title='Send Email'
+                        title=' Send Email '
                         buttonStyle={{backgroundColor: '#512DA8'}}
                         icon={<Icon name='envelope-o' type='font-awesome' color='white' />}
-                        onPress={this.sendMail()}
+                        onPress={this.sendMail}
                    />
                 </Card>
             </View>
